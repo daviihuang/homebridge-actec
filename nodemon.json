@@ -1,0 +1,12 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts",
+  "ignore": [],
+  "exec": "tsc && homebridge -I -D -P ../homebridge-actec",
+  "signal": "SIGTERM",
+  "env": {
+    "NODE_OPTIONS": "--trace-warnings"
+  }
+}

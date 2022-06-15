@@ -1,0 +1,233 @@
+{
+  "pluginAlias": "Yeelighter",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "You must enable LAN control for the lights.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Yeelighter",
+        "required": true
+      },
+      "timeout": {
+        "title": "Timeout for requests",
+        "type": "integer",
+        "default": "5000",
+        "minimum": 0,
+        "maximum": 600000,
+        "required": false,
+        "description": "The timeout allowed for lights to respond to requests (in ms)"
+      },
+      "interval": {
+        "title": "Polling interval for requests (0 means never)",
+        "type": "integer",
+        "default": 60000,
+        "minimum": 5000,
+        "maximum": 600000,
+        "required": false,
+        "description": "The frequency that the lights will be queried for updates (in ms)"
+      },
+      "ctforcolor": {
+        "title": "Allow CT to be set for RGB lights",
+        "type": "boolean",
+        "default": "true",
+        "required": false,
+        "description": "color temperature setting combined with color setting enabled."
+      },
+      "blocking": {
+        "title": "use blocking getters (old behavior)",
+        "type": "boolean",
+        "default": "false",
+        "required": false,
+        "description": "If enabled, instead of regularly pulling updates from the lights, this will query updates only when homekit requests them. This has proven to be problematic since it freezes the homekit UI while waiting for updates."
+      },
+      "split": {
+        "title": "split lights with multiple services into separate homekit lights",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Instead of having mulitple services as sub-items in one light, separate them into multiple lights."
+      },
+      "override": {
+        "type": "array",
+        "items": {
+          "title": "Override Light Configuration",
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "Identifier of the light",
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]{16}",
+              "required": true
+            },
+            "name": {
+              "title": "Name of the light",
+              "type": "string",
+              "required": false,
+              "description": "This name will be displayed in the logs instead if the id"
+            },
+            "log": {
+              "title": "Detailed logging of this light",
+              "type": "boolean",
+              "required": false
+            },
+            "color": {
+              "title": "Treat this as an HSV color light",
+              "type": "boolean",
+              "required": false
+            },
+            "backgroundLight": {
+              "title": "Add an extra control for ambient light",
+              "type": "boolean",
+              "required": false
+            },
+            "nightLight": {
+              "title": "Add an extra range for moonlight mode",
+              "type": "boolean",
+              "required": false
+            },
+            "ignored": {
+              "title": "Ignore this light",
+              "type": "boolean",
+              "required": false
+            },
+            "separateAmbient": {
+              "title": "Manage the Ambient light as separate Accessory",
+              "type": "boolean",
+              "required": false
+            },
+            "offOnDisconnect": {
+              "title": "Switch light off in homekit when disconnected",
+              "type": "boolean",
+              "required": false
+            },
+            "colorTemperature": {
+              "title": "Override Light Configuration",
+              "type": "object",
+              "required": false,
+              "properties": {
+                "min": {
+                  "title": "Minimal color temperature (in Kelvin)",
+                  "type": "integer",
+                  "required": true,
+                  "minimum": 0,
+                  "maximum": 10000
+                },
+                "max": {
+                  "title": "Maximum color temperature (in Kelvin)",
+                  "type": "integer",
+                  "required": true,
+                  "minimum": 0,
+                  "maximum": 10000
+                }
+              }
+            },
+            
+            "address": {
+              "title": "Force IP Address",
+              "type": "string",
+              "required": false,
+              "description": "Create a light with this IP address even though it may not be detected"
+            }
+          }
+        }
+      },
+      "manual": {
+        "type": "array",
+        "items": {
+          "title": "Manual Lights",
+          "description": "This is to manually add lights if detection doesn't work",
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "Identifier of the light (from Yeelight app)",
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]{16}",
+              "required": true
+            },
+            "address": {
+              "title": "IP Address of the light",
+              "type": "string",
+              "required": true,
+              "description": "Create a light with this IP address even though it may not be detected"
+            },
+            "name": {
+              "title": "Name of the light",
+              "type": "string",
+              "required": false,
+              "description": "This name will be displayed in the logs instead if the id"
+            },
+            "model": {
+              "title": "Model of the light",
+              "type": "string",
+              "required": false,
+              "description": "This should be the model name"
+            },
+            "support": {
+              "title": "Supported properties (space separated)",
+              "type": "string",
+              "required": false,
+              "description": "This describes the properties that can be set on the light"
+            },
+            "log": {
+              "title": "Detailed logging of this light",
+              "type": "boolean",
+              "required": false
+            },
+            "color": {
+              "title": "Treat this as an HSV color light",
+              "type": "boolean",
+              "required": true
+            },
+            "backgroundLight": {
+              "title": "Add an extra control for ambient light",
+              "type": "boolean",
+              "required": true
+            },
+            "nightLight": {
+              "title": "Add an extra range for moonlight mode",
+              "type": "boolean",
+              "required": true
+            },
+            "separateAmbient": {
+              "title": "Manage the Ambient light as separate Accessory",
+              "type": "boolean",
+              "required": false
+            },
+            "colorTemperature": {
+              "title": "Override Light Configuration",
+              "type": "object",
+              "required": false,
+              "properties": {
+                "min": {
+                  "title": "Minimal color temperature (in Kelvin)",
+                  "type": "integer",
+                  "required": true,
+                  "minimum": 0,
+                  "maximum": 10000
+                },
+                "max": {
+                  "title": "Maximum color temperature (in Kelvin)",
+                  "type": "integer",
+                  "required": true,
+                  "minimum": 0,
+                  "maximum": 10000
+                }
+              }
+            },
+            "ignorePower": {
+              "title": "Ignore the power setting from Homekit and rely on brightness only",
+              "type": "boolean",
+              "required": false,
+              "default": false,
+              "description": "Homekit sends a power on before brightness changes. This will tamper with moonlight settings."
+            }
+          }
+        }
+      }
+    }
+  }
+}
